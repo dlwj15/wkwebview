@@ -8,6 +8,11 @@
 
 #import <WebKit/WebKit.h>
 
+/******************JS************************/
+// 在方法中使用
+// window.webkit.messageHandlers.showMobile.postMessage(null)
+// window.webkit.messageHandlers.协议好的脚本名称.postMessage(返参)
+
 @interface LWWKWebView : WKWebView 
 
 /**
