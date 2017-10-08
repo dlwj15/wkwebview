@@ -17,6 +17,8 @@
 
 - (void)startLoadRequest;
 
+- (id)jsonObjectWithData:(id)data;
+
 @property (nonatomic, strong) LWWKWebView *lw_webView;
 
 @property (nonatomic, strong) UIProgressView *progressView;

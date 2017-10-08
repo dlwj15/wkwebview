@@ -24,6 +24,7 @@
 {
     RootWebViewController *webViewController = [[self alloc] init];
     webViewController.requestURLString = urlString;
+    webViewController.startLoad = YES;
     return webViewController;
 }
 
@@ -41,26 +42,14 @@
     [self addWebViewToView];
     [self addProgressViewToView];
     [self addObserverFormSelf];
-    if (!self.startLoad) { // 实际使用时去掉非 ！
+    if (self.startLoad) {
         [self startLoadRequest];
     }
-    
-    [self.lw_webView lw_addScriptMessageWithName:@"onReceiveValue" completionHandler:^(id responseObject) {
-        NSLog(@"responseObject  %@", responseObject);
-    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
-}
-
-- (IBAction)evaluateJavaScript_clicked:(id)sender
-{
-//    @"shareToWeiXin()"
-    [self.lw_webView lw_evaluateJavaScript:@"intoError()" completionHandler:^(id response, NSError *error) {
-        NSLog(@"response %@", response);
-    }];
 }
 
 #pragma mark 添加KVO
@@ -108,6 +97,11 @@
 - (void)startLoadRequest
 {
     [self.lw_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.requestURLString]]];
+}
+
+- (id)jsonObjectWithData:(id)data
+{
+    return [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:NULL];
 }
 
 #pragma mark KVO的回调

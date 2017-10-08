@@ -8,10 +8,10 @@
 
 #import <WebKit/WebKit.h>
 
-/******************JS************************/
-// 在方法中使用
+/******************JS方法中使用************************/
 // window.webkit.messageHandlers.showMobile.postMessage(null)
-// window.webkit.messageHandlers.协议好的脚本名称.postMessage(返参)
+// window.webkit.messageHandlers.(协议好的脚本名称).postMessage(返参)
+// 注意与安卓的使用需要判断分割开，不然会不执行
 
 @interface LWWKWebView : WKWebView 
 
@@ -22,7 +22,7 @@
  @param messageName message handler name
  @param completionHandler script message handler completion
  */
-- (void)lw_addScriptMessageWithName:(NSString *)messageName completionHandler:(void (^) (id responseObject))completionHandler;
+- (void)lw_addScriptMessageWithName:(NSString *)messageName completionHandler:(void (^) (id messageBody))completionHandler;
 
 
 /**

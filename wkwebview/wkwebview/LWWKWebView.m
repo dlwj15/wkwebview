@@ -21,11 +21,7 @@
 {
     void (^messageHandler) (id) = [_scriptMessageHandler objectForKey:message.name];
     if (messageHandler) {
-        id body;
-        if (message.body) {
-            body = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:NULL];
-        }
-        messageHandler(body);
+        messageHandler(message.body);
     }
 }
 
@@ -42,12 +38,8 @@
 - (void)lw_evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^)(id, NSError *))completionHandler
 {
     [self evaluateJavaScript:javaScriptString completionHandler:^(id response, NSError *error) {
-        id data;
-        if (response) {
-            data = [NSJSONSerialization JSONObjectWithData:[response dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:NULL];
-        }
         if (completionHandler) {
-            completionHandler(data, error);
+            completionHandler(response, error);
         }
     }];
 }
